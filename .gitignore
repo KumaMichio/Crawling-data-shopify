@@ -6,3 +6,4 @@ images/
 data/
 # private browser export (contains internal company links) - stores.csv is the store list
 bookmarks_*.html
+~$*
