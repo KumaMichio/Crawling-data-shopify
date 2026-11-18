@@ -10,8 +10,12 @@ Latest results are in [`output/`](output/) – one folder per run, e.g. `output/
 | File | Contents |
 |---|---|
 | `mahjong_stores_<date>.xlsx` | all sheets below in one workbook |
-| `summary.csv` | one row per store: platform, status, product count, price range, reviews |
-| `products.csv` | product, prices, sale, stock, rating, review count, rank columns, first image |
+| `mahjong_reviews_<date>.xlsx` | review report (Vietnamese headers): stores → products with review counts & star breakdown → review texts |
+| `summary.csv` | one row per store: platform, status, product count, median/min/max price, main category, reviews |
+| `categories.csv` | price stats per product category (tile set, mat, rack, bag, …) across all stores |
+| `so_sanh_gia.csv` | per store × category: price range, market median, % vs market, price rank |
+| `store_category_price.csv` | wide table: median price and product count of each category per store |
+| `products.csv` | product, category, prices, sale, stock, rating, review count, rank columns, first image |
 | `variants.csv` · `images.csv` | per-variant price/stock/SKU · every image URL |
 | `reviews.csv` | rating, title, text, author, date |
 | `rankings.csv` | bestseller / featured / catalog / homepage / review-count ranks |
@@ -19,8 +23,12 @@ Latest results are in [`output/`](output/) – one folder per run, e.g. `output/
 
 Images (~19 GB) are **not** in this repo; image URLs are in `images.csv`.
 
-Known issues in the first run (fixed in code from the next run): 12 stores returned VND instead of USD prices,
-and 27 stores were wrongly detected as using Yotpo, so their reviews may be missing.
+Prices are compared in USD, ignoring $0 items and gift cards. `median_price` is the median of each product's lowest
+variant price. Categories come from keyword rules on title + product type (`mahjong_crawler/categories.py`), so a
+few items are misclassified.
+
+Known issues in the first run: 12 stores first returned VND prices (re-fetched in USD and corrected), and 27 stores
+were wrongly detected as using Yotpo, so their reviews may be missing (fixed in code from the next run).
 
 ## Setup
 ```powershell
